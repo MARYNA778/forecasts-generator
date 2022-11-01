@@ -1,15 +1,32 @@
-/* Генерация предсказания должна происходить при клике на кнопку «предсказать судьбу» */
+const button = document.querySelector('button'); // нашли кнопку «предсказать судьбу» 
+const currentForecast = document.querySelector('.current-forecast'); // нашли контейнер для прогнозов
+const template = document.querySelector('#forecasts-item'); // место для старого предсказания
+const list = document.querySelector(".forecasts"); // элемент списка
+const prediction = [ // масив хранящий варианты предсказаний
+    'У тебя сегодня будет замечательный день',
+    'Тебе ждёт не забываемое путешествие',
+    'В скором времени, ты получишь интересный подарок',
+    'Ты точно "победишь" JS',
+    'В скором времени ты станешь крутым разработчиком',
+];
 
-/* Заранее заготовь 3-5 предсказаний и в зависимости от того, как лягут карты судьбы (или что скажет Math.random) показывай их пользователю */
+button.addEventListener('click', function getRandom() { // обработчик события на "клик", 
+    currentForecast.querySelector("h1").textContent = prediction[Math.floor(Math.random() * prediction.length)]; // то что присходит при нажатиии на клик
+    const predictionText = `Вероятность ${getRandomIntInclusive(0, 100)}%`;
+    currentForecast.querySelector("p").textContent = predictionText; // то что присходит при нажатиии на клик
 
-/* Подставляй текст нового предсказания в .current-forecast h1 */
+    const template = document.querySelector("#forecast-item");
+    const card = template.content.cloneNode(true);
+    card.querySelector("h3").textContent = prediction[Math.floor(Math.random() * prediction.length)];
+    card.querySelector("p").textContent = predictionText;
+    list.append(card);
+})
 
-/* Показывай процент вероятности, с которым предсказание сбудется — в верстке это .current-forecast p */
+// добавляем старое предсказание
 
-/* Данный процент также нужно генерировать автоматически, он может принимать значения от 0 до 100% */
 
-/* Совет: заведи функцию-хелпер, которая будет заниматься только генерацией данных в диапазоне от min до max и используй ее где нужно */
-
-/* При генерации нового предсказания старое предсказание должно добавляться в начало списка «Мои предсказания» — .forecasts  */
-
-/* Для добавления предсказания в список воспользуйся шаблоном forecast-item */
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+}
